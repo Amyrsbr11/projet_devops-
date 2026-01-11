@@ -17,35 +17,58 @@
     <artifactId>app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <!-- ================= PROPERTIES ================= -->
     <properties>
-        <java.version>17</java.version>
-    </properties>
+    <java.version>17</java.version>
+
+    <!-- SonarCloud -->
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+    <!-- ⚠️ valeurs RÉELLES -->
+<sonar.organization>amyrsbr11-2</sonar.organization>
+<sonar.projectKey>amyrsbr11-2_app</sonar.projectKey>
+
+
+    <!-- chemins -->
+    <sonar.sources>src/main/java</sonar.sources>
+    <sonar.tests>src/test/java</sonar.tests>
+
+    <!-- JaCoCo -->
+    <sonar.coverage.jacoco.xmlReportPaths>
+        target/site/jacoco/jacoco.xml
+    </sonar.coverage.jacoco.xmlReportPaths>
+</properties>
 
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
+        <!-- WEB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- MYSQL -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
 
+        <!-- OPENAPI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
         </dependency>
 
+        <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -107,14 +130,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- ✅ JACOCO CORRECT -->
+            <!-- JACOCO -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.11</version>
                 <executions>
-
-                    <!-- Attache l’agent AVANT les tests -->
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
@@ -122,7 +143,6 @@
                         </goals>
                     </execution>
 
-                    <!-- Génère le rapport APRÈS les tests -->
                     <execution>
                         <id>report</id>
                         <phase>verify</phase>
@@ -130,8 +150,14 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-
                 </executions>
+            </plugin>
+
+            <!-- SONAR -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version>
             </plugin>
 
         </plugins>
